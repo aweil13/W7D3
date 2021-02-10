@@ -20,4 +20,39 @@ RSpec.describe User, type: :model do
 
     end
 
+    describe "session_token" do 
+        it "should assign a session_token if none is given" do 
+            expect(FactoryBot.create(:user).session_token).not_to be_nil
+        end
+
+    end
+
+    describe "is_password?" do 
+        let!(:user) {create(:user)}
+        context "with a valid password" do 
+            it "should return true" do 
+                expect(user.is_password?("bulma")).to be true
+            end
+        end
+        context "with a invalid password" do 
+            it "should return false" do 
+                expect(user.is_password?("chichi")).to be false
+            end
+        end
+
+    end
+
+    describe "::find_by_credentials" do
+        let!(:user) {create(:user)}
+        before :each do 
+            username = user.username
+            password = "bulma"
+        end
+        context "with valid credentials" do 
+            it "should return user" do 
+                expect(user.find_by_credentials(username, password)).to eq(user)
+            end
+        end
+    end
+
 end
