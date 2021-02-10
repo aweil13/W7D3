@@ -16,6 +16,7 @@ RSpec.describe User, type: :model do
         end
         it {should validate_uniqueness_of(:username)}
         it {should validate_uniqueness_of(:session_token)}
+
     end
 
 end
